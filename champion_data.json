@@ -1,0 +1,828 @@
+{
+  "data": {
+    "Jax": {
+      "id": 24,
+      "key": "Jax",
+      "name": "ジャックス",
+      "title": "最強の武器使い"
+    },
+    "Sona": {
+      "id": 37,
+      "key": "Sona",
+      "name": "ソナ",
+      "title": "沈黙の弦奏師"
+    },
+    "Tristana": {
+      "id": 18,
+      "key": "Tristana",
+      "name": "トリスターナ",
+      "title": "ヨードルの主砲"
+    },
+    "Varus": {
+      "id": 110,
+      "key": "Varus",
+      "name": "ヴァルス",
+      "title": "報復の一矢"
+    },
+    "Fiora": {
+      "id": 114,
+      "key": "Fiora",
+      "name": "フィオラ",
+      "title": "高潔なるデュエリスト"
+    },
+    "Singed": {
+      "id": 27,
+      "key": "Singed",
+      "name": "シンジド",
+      "title": "マッドケミスト"
+    },
+    "TahmKench": {
+      "id": 223,
+      "key": "TahmKench",
+      "name": "タム・ケンチ",
+      "title": "川の王様"
+    },
+    "Leblanc": {
+      "id": 7,
+      "key": "Leblanc",
+      "name": "ルブラン",
+      "title": "幻惑の奇術師"
+    },
+    "Thresh": {
+      "id": 412,
+      "key": "Thresh",
+      "name": "スレッシュ",
+      "title": "縛鎖の看守"
+    },
+    "Karma": {
+      "id": 43,
+      "key": "Karma",
+      "name": "カルマ",
+      "title": "目覚めし者"
+    },
+    "Jhin": {
+      "id": 202,
+      "key": "Jhin",
+      "name": "ジン",
+      "title": "孤高の芸術家"
+    },
+    "Rumble": {
+      "id": 68,
+      "key": "Rumble",
+      "name": "ランブル",
+      "title": "戦慄の機甲兵"
+    },
+    "Udyr": {
+      "id": 77,
+      "key": "Udyr",
+      "name": "ウディア",
+      "title": "精霊と歩む者"
+    },
+    "LeeSin": {
+      "id": 64,
+      "key": "LeeSin",
+      "name": "リー・シン",
+      "title": "盲目の修行僧"
+    },
+    "Yorick": {
+      "id": 83,
+      "key": "Yorick",
+      "name": "ヨリック",
+      "title": "魂の導き手"
+    },
+    "Kayn": {
+      "id": 141,
+      "key": "Kayn",
+      "name": "ケイン",
+      "title": "無情の影"
+    },
+    "Kassadin": {
+      "id": 38,
+      "key": "Kassadin",
+      "name": "カサディン",
+      "title": "ヴォイドを歩む者"
+    },
+    "Sivir": {
+      "id": 15,
+      "key": "Sivir",
+      "name": "シヴィア",
+      "title": "戦場の女王"
+    },
+    "MissFortune": {
+      "id": 21,
+      "key": "MissFortune",
+      "name": "フォーチュン",
+      "title": "美貌の賞金稼ぎ"
+    },
+    "Draven": {
+      "id": 119,
+      "key": "Draven",
+      "name": "ドレイヴン",
+      "title": "栄光ある処刑人"
+    },
+    "Yasuo": {
+      "id": 157,
+      "key": "Yasuo",
+      "name": "ヤスオ",
+      "title": "赦されざる者"
+    },
+    "Kayle": {
+      "id": 10,
+      "key": "Kayle",
+      "name": "ケイル",
+      "title": "裁きの翼"
+    },
+    "Shaco": {
+      "id": 35,
+      "key": "Shaco",
+      "name": "シャコ",
+      "title": "悪魔の道化師"
+    },
+    "Renekton": {
+      "id": 58,
+      "key": "Renekton",
+      "name": "レネクトン",
+      "title": "砂漠の解体屋"
+    },
+    "Hecarim": {
+      "id": 120,
+      "key": "Hecarim",
+      "name": "ヘカリム",
+      "title": "戦場の幻影"
+    },
+    "Fizz": {
+      "id": 105,
+      "key": "Fizz",
+      "name": "フィズ",
+      "title": "波間のトリックスター"
+    },
+    "KogMaw": {
+      "id": 96,
+      "key": "KogMaw",
+      "name": "コグ＝マウ",
+      "title": "深淵のアギト"
+    },
+    "Maokai": {
+      "id": 57,
+      "key": "Maokai",
+      "name": "マオカイ",
+      "title": "歪みし樹人"
+    },
+    "Lissandra": {
+      "id": 127,
+      "key": "Lissandra",
+      "name": "リサンドラ",
+      "title": "氷の魔女"
+    },
+    "Jinx": {
+      "id": 222,
+      "key": "Jinx",
+      "name": "ジンクス",
+      "title": "暴走パンクガール"
+    },
+    "Urgot": {
+      "id": 6,
+      "key": "Urgot",
+      "name": "アーゴット",
+      "title": "ドレッドノート"
+    },
+    "Fiddlesticks": {
+      "id": 9,
+      "key": "Fiddlesticks",
+      "name": "フィドル",
+      "title": "破滅の先触れ"
+    },
+    "Galio": {
+      "id": 3,
+      "key": "Galio",
+      "name": "ガリオ",
+      "title": "伝説の巨像"
+    },
+    "Pantheon": {
+      "id": 80,
+      "key": "Pantheon",
+      "name": "パンテオン",
+      "title": "軍神"
+    },
+    "Talon": {
+      "id": 91,
+      "key": "Talon",
+      "name": "タロン",
+      "title": "将軍の懐刀"
+    },
+    "Gangplank": {
+      "id": 41,
+      "key": "Gangplank",
+      "name": "ガングプランク",
+      "title": "大海原の大災厄"
+    },
+    "Ezreal": {
+      "id": 81,
+      "key": "Ezreal",
+      "name": "エズリアル",
+      "title": "光の冒険心"
+    },
+    "Gnar": {
+      "id": 150,
+      "key": "Gnar",
+      "name": "ナー",
+      "title": "ミッシングリンク"
+    },
+    "Teemo": {
+      "id": 17,
+      "key": "Teemo",
+      "name": "ティーモ",
+      "title": "俊足の斥候"
+    },
+    "Annie": {
+      "id": 1,
+      "key": "Annie",
+      "name": "アニー",
+      "title": "闇の申し子"
+    },
+    "Mordekaiser": {
+      "id": 82,
+      "key": "Mordekaiser",
+      "name": "モルデカイザー",
+      "title": "鋼の魂奪者"
+    },
+    "Azir": {
+      "id": 268,
+      "key": "Azir",
+      "name": "アジール",
+      "title": "砂塵の皇帝"
+    },
+    "Kennen": {
+      "id": 85,
+      "key": "Kennen",
+      "name": "ケネン",
+      "title": "雷雲の担い手"
+    },
+    "Riven": {
+      "id": 92,
+      "key": "Riven",
+      "name": "リヴェン",
+      "title": "贖罪の追放者"
+    },
+    "Chogath": {
+      "id": 31,
+      "key": "Chogath",
+      "name": "チョ＝ガス",
+      "title": "未知なる恐怖"
+    },
+    "Aatrox": {
+      "id": 266,
+      "key": "Aatrox",
+      "name": "エイトロックス",
+      "title": "殺戮の古代戦士"
+    },
+    "Poppy": {
+      "id": 78,
+      "key": "Poppy",
+      "name": "ポッピー",
+      "title": "大鎚の守護者"
+    },
+    "Taliyah": {
+      "id": 163,
+      "key": "Taliyah",
+      "name": "タリヤ",
+      "title": "ストーンウィーバー"
+    },
+    "Illaoi": {
+      "id": 420,
+      "key": "Illaoi",
+      "name": "イラオイ",
+      "title": "海の女司祭"
+    },
+    "Heimerdinger": {
+      "id": 74,
+      "key": "Heimerdinger",
+      "name": "ハイマー",
+      "title": "誉れ高き発明王"
+    },
+    "Alistar": {
+      "id": 12,
+      "key": "Alistar",
+      "name": "アリスター",
+      "title": "ミノタウロスの戦士"
+    },
+    "XinZhao": {
+      "id": 5,
+      "key": "XinZhao",
+      "name": "シン・ジャオ",
+      "title": "デマーシアの家令長"
+    },
+    "Lucian": {
+      "id": 236,
+      "key": "Lucian",
+      "name": "ルシアン",
+      "title": "不浄殲滅者"
+    },
+    "Volibear": {
+      "id": 106,
+      "key": "Volibear",
+      "name": "ボリベア",
+      "title": "雷鳴の咆哮"
+    },
+    "Sejuani": {
+      "id": 113,
+      "key": "Sejuani",
+      "name": "セジュアニ",
+      "title": "極北の激憤"
+    },
+    "Nidalee": {
+      "id": 76,
+      "key": "Nidalee",
+      "name": "ニダリー",
+      "title": "半獣の狩人"
+    },
+    "Garen": {
+      "id": 86,
+      "key": "Garen",
+      "name": "ガレン",
+      "title": "デマーシアの勇士"
+    },
+    "Leona": {
+      "id": 89,
+      "key": "Leona",
+      "name": "レオナ",
+      "title": "暁光の戦士"
+    },
+    "Zed": {
+      "id": 238,
+      "key": "Zed",
+      "name": "ゼド",
+      "title": "影の頭領"
+    },
+    "Blitzcrank": {
+      "id": 53,
+      "key": "Blitzcrank",
+      "name": "ブリッツ",
+      "title": "偉大なるスチームゴーレム"
+    },
+    "Rammus": {
+      "id": 33,
+      "key": "Rammus",
+      "name": "ラムス",
+      "title": "アーマージロ"
+    },
+    "Velkoz": {
+      "id": 161,
+      "key": "Velkoz",
+      "name": "ヴェル＝コズ",
+      "title": "ヴォイドの瞳"
+    },
+    "Caitlyn": {
+      "id": 51,
+      "key": "Caitlyn",
+      "name": "ケイトリン",
+      "title": "ピルトーヴァーの保安官"
+    },
+    "Trundle": {
+      "id": 48,
+      "key": "Trundle",
+      "name": "トランドル",
+      "title": "トロールキング"
+    },
+    "Kindred": {
+      "id": 203,
+      "key": "Kindred",
+      "name": "キンドレッド",
+      "title": "永遠なる狩人"
+    },
+    "Quinn": {
+      "id": 133,
+      "key": "Quinn",
+      "name": "クイン",
+      "title": "デマーシアの両翼"
+    },
+    "Ekko": {
+      "id": 245,
+      "key": "Ekko",
+      "name": "エコー",
+      "title": "砕けた時を渡る少年"
+    },
+    "Nami": {
+      "id": 267,
+      "key": "Nami",
+      "name": "ナミ",
+      "title": "潮呼びの巫女"
+    },
+    "Swain": {
+      "id": 50,
+      "key": "Swain",
+      "name": "スウェイン",
+      "title": "戦術の匠"
+    },
+    "Taric": {
+      "id": 44,
+      "key": "Taric",
+      "name": "タリック",
+      "title": "ヴァロランの守護者"
+    },
+    "Syndra": {
+      "id": 134,
+      "key": "Syndra",
+      "name": "シンドラ",
+      "title": "暗黒の女王"
+    },
+    "Rakan": {
+      "id": 497,
+      "key": "Rakan",
+      "name": "ラカン",
+      "title": "魅惑の翼"
+    },
+    "Skarner": {
+      "id": 72,
+      "key": "Skarner",
+      "name": "スカーナー",
+      "title": "水晶の尖兵"
+    },
+    "Braum": {
+      "id": 201,
+      "key": "Braum",
+      "name": "ブラウム",
+      "title": "フレヨルドの漢気"
+    },
+    "Veigar": {
+      "id": 45,
+      "key": "Veigar",
+      "name": "ベイガー",
+      "title": "小さき大魔王"
+    },
+    "Xerath": {
+      "id": 101,
+      "key": "Xerath",
+      "name": "ゼラス",
+      "title": "超越魔神"
+    },
+    "Corki": {
+      "id": 42,
+      "key": "Corki",
+      "name": "コーキ",
+      "title": "豪気の爆撃手"
+    },
+    "Nautilus": {
+      "id": 111,
+      "key": "Nautilus",
+      "name": "ノーチラス",
+      "title": "深海の巨人"
+    },
+    "Ahri": {
+      "id": 103,
+      "key": "Ahri",
+      "name": "アーリ",
+      "title": "九尾の狐"
+    },
+    "Jayce": {
+      "id": 126,
+      "key": "Jayce",
+      "name": "ジェイス",
+      "title": "未来への希望"
+    },
+    "Darius": {
+      "id": 122,
+      "key": "Darius",
+      "name": "ダリウス",
+      "title": "ノクサスの戦斧"
+    },
+    "Tryndamere": {
+      "id": 23,
+      "key": "Tryndamere",
+      "name": "トリンダメア",
+      "title": "孤高の蛮王"
+    },
+    "Janna": {
+      "id": 40,
+      "key": "Janna",
+      "name": "ジャンナ",
+      "title": "嵐の怒り"
+    },
+    "Elise": {
+      "id": 60,
+      "key": "Elise",
+      "name": "エリス",
+      "title": "蜘蛛の女帝"
+    },
+    "Vayne": {
+      "id": 67,
+      "key": "Vayne",
+      "name": "ヴェイン",
+      "title": "ナイトハンター"
+    },
+    "Brand": {
+      "id": 63,
+      "key": "Brand",
+      "name": "ブランド",
+      "title": "復讐の炎"
+    },
+    "Graves": {
+      "id": 104,
+      "key": "Graves",
+      "name": "グレイブス",
+      "title": "無法者"
+    },
+    "Soraka": {
+      "id": 16,
+      "key": "Soraka",
+      "name": "ソラカ",
+      "title": "星の子"
+    },
+    "Xayah": {
+      "id": 498,
+      "key": "Xayah",
+      "name": "ザヤ",
+      "title": "反逆の刃"
+    },
+    "Karthus": {
+      "id": 30,
+      "key": "Karthus",
+      "name": "カーサス",
+      "title": "死を歌う者"
+    },
+    "Vladimir": {
+      "id": 8,
+      "key": "Vladimir",
+      "name": "ブラッドミア",
+      "title": "真紅の死神"
+    },
+    "Zilean": {
+      "id": 26,
+      "key": "Zilean",
+      "name": "ジリアン",
+      "title": "時の番人"
+    },
+    "Katarina": {
+      "id": 55,
+      "key": "Katarina",
+      "name": "カタリナ",
+      "title": "凶兆の刃"
+    },
+    "Shyvana": {
+      "id": 102,
+      "key": "Shyvana",
+      "name": "シヴァーナ",
+      "title": "半龍人"
+    },
+    "Warwick": {
+      "id": 19,
+      "key": "Warwick",
+      "name": "ワーウィック",
+      "title": "解き放たれたゾウンの激憤"
+    },
+    "Ziggs": {
+      "id": 115,
+      "key": "Ziggs",
+      "name": "ジグス",
+      "title": "ヘクス爆薬のエキスパート"
+    },
+    "Kled": {
+      "id": 240,
+      "key": "Kled",
+      "name": "クレッド",
+      "title": "狂乱の騎兵"
+    },
+    "Khazix": {
+      "id": 121,
+      "key": "Khazix",
+      "name": "カ＝ジックス",
+      "title": "ヴォイドの捕食者"
+    },
+    "Olaf": {
+      "id": 2,
+      "key": "Olaf",
+      "name": "オラフ",
+      "title": "狂戦士"
+    },
+    "TwistedFate": {
+      "id": 4,
+      "key": "TwistedFate",
+      "name": "フェイト",
+      "title": "不敗のイカサマ師"
+    },
+    "Nunu": {
+      "id": 20,
+      "key": "Nunu",
+      "name": "ヌヌ",
+      "title": "雪男を駆る少年"
+    },
+    "Rengar": {
+      "id": 107,
+      "key": "Rengar",
+      "name": "レンガー",
+      "title": "孤高のハンター"
+    },
+    "Bard": {
+      "id": 432,
+      "key": "Bard",
+      "name": "バード",
+      "title": "流離いの庇護者"
+    },
+    "Irelia": {
+      "id": 39,
+      "key": "Irelia",
+      "name": "イレリア",
+      "title": "剣の遺志"
+    },
+    "Ivern": {
+      "id": 427,
+      "key": "Ivern",
+      "name": "アイバーン",
+      "title": "豊緑の神秘"
+    },
+    "MonkeyKing": {
+      "id": 62,
+      "key": "MonkeyKing",
+      "name": "ウーコン",
+      "title": "美猴王"
+    },
+    "Ashe": {
+      "id": 22,
+      "key": "Ashe",
+      "name": "アッシュ",
+      "title": "氷の射手"
+    },
+    "Kalista": {
+      "id": 429,
+      "key": "Kalista",
+      "name": "カリスタ",
+      "title": "復讐の槍"
+    },
+    "Akali": {
+      "id": 84,
+      "key": "Akali",
+      "name": "アカリ",
+      "title": "影の拳"
+    },
+    "Vi": {
+      "id": 254,
+      "key": "Vi",
+      "name": "ヴァイ",
+      "title": "ピルトーヴァーの用心棒"
+    },
+    "Amumu": {
+      "id": 32,
+      "key": "Amumu",
+      "name": "アムム",
+      "title": "めそめそミイラ"
+    },
+    "Lulu": {
+      "id": 117,
+      "key": "Lulu",
+      "name": "ルル",
+      "title": "森の妖精使い"
+    },
+    "Morgana": {
+      "id": 25,
+      "key": "Morgana",
+      "name": "モルガナ",
+      "title": "不屈の堕天使"
+    },
+    "Nocturne": {
+      "id": 56,
+      "key": "Nocturne",
+      "name": "ノクターン",
+      "title": "終わりなき悪夢"
+    },
+    "Diana": {
+      "id": 131,
+      "key": "Diana",
+      "name": "ダイアナ",
+      "title": "嘲りの月"
+    },
+    "AurelionSol": {
+      "id": 136,
+      "key": "AurelionSol",
+      "name": "オレリオン・ソル",
+      "title": "星を創りし者"
+    },
+    "Zyra": {
+      "id": 143,
+      "key": "Zyra",
+      "name": "ザイラ",
+      "title": "茨の目覚め"
+    },
+    "Viktor": {
+      "id": 112,
+      "key": "Viktor",
+      "name": "ビクター",
+      "title": "機械文明の先触れ"
+    },
+    "Cassiopeia": {
+      "id": 69,
+      "key": "Cassiopeia",
+      "name": "カシオペア",
+      "title": "毒蛇の抱擁"
+    },
+    "Nasus": {
+      "id": 75,
+      "key": "Nasus",
+      "name": "ナサス",
+      "title": "砂漠の司書"
+    },
+    "Twitch": {
+      "id": 29,
+      "key": "Twitch",
+      "name": "トゥイッチ",
+      "title": "黒死のドブネズミ"
+    },
+    "DrMundo": {
+      "id": 36,
+      "key": "DrMundo",
+      "name": "ドクター・ムンド",
+      "title": "ゾウンの狂人"
+    },
+    "Orianna": {
+      "id": 61,
+      "key": "Orianna",
+      "name": "オリアナ",
+      "title": "時計仕掛けの舞姫"
+    },
+    "Evelynn": {
+      "id": 28,
+      "key": "Evelynn",
+      "name": "イブリン",
+      "title": "幻妖のアサシン"
+    },
+    "RekSai": {
+      "id": 421,
+      "key": "RekSai",
+      "name": "レク＝サイ",
+      "title": "地底の恐怖"
+    },
+    "Lux": {
+      "id": 99,
+      "key": "Lux",
+      "name": "ラックス",
+      "title": "光の才女"
+    },
+    "Sion": {
+      "id": 14,
+      "key": "Sion",
+      "name": "サイオン",
+      "title": "不死身の重戦車"
+    },
+    "Camille": {
+      "id": 164,
+      "key": "Camille",
+      "name": "カミール",
+      "title": "スチールシャドウ"
+    },
+    "MasterYi": {
+      "id": 11,
+      "key": "MasterYi",
+      "name": "マスター・イー",
+      "title": "ウージューの剣客"
+    },
+    "Ryze": {
+      "id": 13,
+      "key": "Ryze",
+      "name": "ライズ",
+      "title": "ルーンの魔導師"
+    },
+    "Malphite": {
+      "id": 54,
+      "key": "Malphite",
+      "name": "マルファイト",
+      "title": "モノリスの欠片"
+    },
+    "Anivia": {
+      "id": 34,
+      "key": "Anivia",
+      "name": "アニビア",
+      "title": "氷の不死鳥"
+    },
+    "Shen": {
+      "id": 98,
+      "key": "Shen",
+      "name": "シェン",
+      "title": "黄昏の瞳"
+    },
+    "JarvanIV": {
+      "id": 59,
+      "key": "JarvanIV",
+      "name": "ジャーヴァンⅣ",
+      "title": "デマーシアの儀範"
+    },
+    "Malzahar": {
+      "id": 90,
+      "key": "Malzahar",
+      "name": "マルザハール",
+      "title": "ヴォイドの予言者"
+    },
+    "Zac": {
+      "id": 154,
+      "key": "Zac",
+      "name": "ザック",
+      "title": "親愛なる秘密兵器"
+    },
+    "Gragas": {
+      "id": 79,
+      "key": "Gragas",
+      "name": "グラガス",
+      "title": "騒乱の飲んだくれ"
+    }
+  },
+  "type": "champion",
+  "version": "7.16.1"
+}

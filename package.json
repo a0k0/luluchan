@@ -1,0 +1,31 @@
+{
+  "name": "yandere_luluchan",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "discord.js": "^11.1.0",
+    "dotenv": "^4.0.0",
+    "erlpack": "hammerandchisel/erlpack",
+    "libsodium-wrappers": "^0.5.1",
+    "node-opus": "^0.2.5",
+    "opusscript": "^0.0.3",
+    "request": "",
+    "sodium": "^2.0.1",
+    "uws": "^0.14.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "8.4.0",
+    "npm": "5.3.0"
+  },
+  "author": "a0k0",
+  "license": "MIT",
+  "optionalDependencies": {
+    "bufferutil": "^3.0.2"
+  }
+}

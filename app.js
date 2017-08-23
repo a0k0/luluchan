@@ -19,11 +19,19 @@ server.on('request', doRequest);
 
 var fs = require('fs');
 function doRequest(req, res) {
-  fs.readFile('./index.html', 'utf-8' , doReard );
-  function doReard(err, data) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write(data);
-    res.end();
+  if (req.url == "/riot.txt") {
+    fs.readFile('./riot.txt', 'utf-8' , function (err, data) {
+      res.writeHead(200, {'Content-Type': 'text/plain'});
+      res.write(data);
+      res.end();
+    });
+  } else {
+    fs.readFile('./index.html', 'utf-8' , doReard );
+    function doReard(err, data) {
+      res.writeHead(200, {'Content-Type': 'text/html'});
+      res.write(data);
+      res.end();
+    }
   }
 }
 

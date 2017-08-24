@@ -64,8 +64,7 @@ client.on("message", async message => {
       message.member.voiceChannel.join()
         .then(connection => {
           const random_id = Math.floor(Math.random() * 10)+1;
-          const random_voice_path = './audio/' + 1 + '.mp3';
-          console.log(random_voice_path);
+          const random_voice_path = './audio/' + random_id + '.mp3';
           const dispatcher = connection.playFile(random_voice_path);
           message.delete().catch(O_o=>{});
 

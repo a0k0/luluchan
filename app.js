@@ -6,18 +6,12 @@ const champion_data = require("./champion_data.json");
 const RIOT_API_KEY = process.env.RIOT_API_KEY;
 const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
 const region = "jp1";
+const fs = require('fs');
 
 var http = require('http'); //httpモジュール呼び出し
-// http.createServer(function (request, response) {
-//   // リクエストを受けると以下のレスポンスを送信する
-//   response.writeHead(200, {'Content-Type': 'text/plain'}); //レスポンスヘッダーに書き込み
-//   response.end('Hello World\n'); // レスポンスボディに書き込み＆レスポンス送信を完了する
-// }).listen(process.env.PORT || 8080); //公開ポートで待ち受け
-
 var server = http.createServer();
 server.on('request', doRequest);
 
-var fs = require('fs');
 function doRequest(req, res) {
   if (req.url == "/riot.txt") {
     fs.readFile('./riot.txt', 'utf-8' , function (err, data) {
@@ -64,14 +58,24 @@ client.on("message", async message => {
   //   m.edit(`Pong! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`);
   // }
 
-  // if(command === "lulu 身内") {
-  //   console.log("身内のげーむをみるよ！");
-  //   checkMiuchiStatus(message);
-  // }
 
-  if(command === "lulu") {
-    const summonerName = args.join(" ");
-    if (summonerName == "かわいい") {
+  if (command === 'luluchan') {
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => {
+          const random_id = Math.floor(Math.random() * 10)+1;
+          const random_voice_path = './audio/' + 1 + '.mp3';
+          console.log(random_voice_path);
+          const dispatcher = connection.playFile(random_voice_path);
+          message.delete().catch(O_o=>{});
+
+          dispatcher.on('end', () => {
+            message.member.voiceChannel.leave();
+          });
+        })
+        .catch(console.log);
+    } else {
+      message.delete().catch(O_o=>{});
       var messages = [
         "おあいできて光栄ですわ！",
         "チューリップのめをみちゃだめよ。",
@@ -83,6 +87,12 @@ client.on("message", async message => {
         "ひらめいた！"
       ];
       message.channel.send(messages[ Math.floor( Math.random() * messages.length ) ]);
+    }
+  }
+
+  if(command === "lulu") {
+    const summonerName = args.join(" ");
+    if (summonerName == "かわいい") {
     }　else if (summonerName) {
       checkSummonerStatus(summonerName, message);
     } else {

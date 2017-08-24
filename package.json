@@ -8,7 +8,7 @@
     "dotenv": "^4.0.0",
     "erlpack": "hammerandchisel/erlpack",
     "libsodium-wrappers": "^0.5.1",
-    "node-opus": "^0.2.5",
+    "node-opus": "^0.2.6",
     "opusscript": "^0.0.3",
     "request": "",
     "sodium": "^2.0.1",

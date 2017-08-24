@@ -7,6 +7,7 @@
     "discord.js": "^11.1.0",
     "dotenv": "^4.0.0",
     "erlpack": "hammerandchisel/erlpack",
+    "ffmpeg-binaries": "^3.2.2-3",
     "libsodium-wrappers": "^0.5.1",
     "node-opus": "^0.2.6",
     "opusscript": "^0.0.3",

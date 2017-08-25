@@ -353,7 +353,8 @@ function accessGetSummonerRate(summonerId, onSuccess) {
 function getChampionName(champion_id) {
   var data = Object.keys(champion_data.data).map(function (key) {return champion_data.data[key]});
   var champion = data.filter(function(item, index){return (item.id == champion_id);});
-  var name = champion[0].name;
+  if (champion) { var name = champion[0].name; }
+  else { var name = "だあれ？"; }
   return name;
 }
 

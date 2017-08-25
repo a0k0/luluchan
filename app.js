@@ -66,6 +66,7 @@ client.on("message", async message => {
           const random_id = Math.floor(Math.random() * 10)+1;
           const random_voice_path = './audio/' + random_id + '.mp3';
           const dispatcher = connection.playFile(random_voice_path);
+          dispatcher.setVolume(0.3);
           message.delete().catch(O_o=>{});
 
           dispatcher.on('end', () => {

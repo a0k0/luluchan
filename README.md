@@ -1,4 +1,4 @@
-# るるちゃんが見てる
+# るるちゃんは見ている
 
 http://luluchan.herokuapp.com
 
@@ -19,17 +19,17 @@ https://discordapp.com/oauth2/authorize?client_id=349194656644595713&scope=bot&p
 
 ### おまけ
 
-* `/lulu かわいい`でルルちゃんがしゃべります （結果として「かわいい」というサモナーの情報が見られません。ごめんなさい。）
-* `/lulusay hogehoge`でルルちゃんに好きなセリフを言わせることができます
+* `/luluchan` でルルちゃんがしゃべります（通話中につかってみてね）
+* `/lulusay hogehoge` でルルちゃんに好きなセリフを言わせることができます
 
-
+　
 
 ## その他もろもろの注意書き
 
 * 予告なく機能が増えます
 * JPサーバーにしか対応していません
 * 初心者のプログラムなので、動作は保証できません
-* League of LegendsおよびRiot Gamesは、Riot Games、Inc.の登録商標または商標です
+* League of Legends（リーグ・オブ・レジェンド）は、Riot Games, Inc.（合同会社ライアットゲームズ）の登録商標または商標です
 
 
 ### 連絡先

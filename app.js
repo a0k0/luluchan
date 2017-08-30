@@ -47,6 +47,8 @@ client.on("guildDelete", guild => {
 });
 
 
+var is_talking_channel_flags = {};
+
 client.on("message", async message => {
   if(message.author.bot) return;
   if(message.content.indexOf(config.prefix) !== 0) return;
@@ -58,18 +60,16 @@ client.on("message", async message => {
   //   m.edit(`Pong! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`);
   // }
 
-  var is_talking = false;
-  var is_talking_channel_flags = {};
 
   if (command === 'luluchan') {
     if (message.member.voiceChannel) {
+
       var channel_id = message.member.voiceChannel.id;
-      if(is_talking_channel_flags[channel_id]) {
-        return;
-      }
+      if(is_talking_channel_flags[channel_id]) { return; }
+      is_talking_channel_flags[channel_id] = true;
+
       message.member.voiceChannel.join()
         .then(connection => {
-          is_talking_channel_flags[channel_id] = true;
           const random_id = Math.floor(Math.random() * 10)+1;
           const random_voice_path = './audio/' + random_id + '.mp3';
           const dispatcher = connection.playFile(random_voice_path);
@@ -77,11 +77,14 @@ client.on("message", async message => {
           message.delete().catch(O_o=>{});
 
           dispatcher.on('end', () => {
-            //message.member.voiceChannel.leave();
+            message.member.voiceChannel.leave();
             is_talking_channel_flags[channel_id] = false;
           });
         })
-        .catch(console.error);
+        .catch(O_o => {
+          is_talking_channel_flags[channel_id] = false;
+        });
+
     } else {
       message.delete().catch(O_o=>{});
       var messages = [

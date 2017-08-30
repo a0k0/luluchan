@@ -58,11 +58,18 @@ client.on("message", async message => {
   //   m.edit(`Pong! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`);
   // }
 
+  var is_talking = false;
+  var is_talking_channel_flags = {};
 
   if (command === 'luluchan') {
     if (message.member.voiceChannel) {
+      var channel_id = message.member.voiceChannel.id;
+      if(is_talking_channel_flags[channel_id]) {
+        return;
+      }
       message.member.voiceChannel.join()
         .then(connection => {
+          is_talking_channel_flags[channel_id] = true;
           const random_id = Math.floor(Math.random() * 10)+1;
           const random_voice_path = './audio/' + random_id + '.mp3';
           const dispatcher = connection.playFile(random_voice_path);
@@ -70,10 +77,11 @@ client.on("message", async message => {
           message.delete().catch(O_o=>{});
 
           dispatcher.on('end', () => {
-            message.member.voiceChannel.leave();
+            //message.member.voiceChannel.leave();
+            is_talking_channel_flags[channel_id] = false;
           });
         })
-        .catch(console.log);
+        .catch(console.error);
     } else {
       message.delete().catch(O_o=>{});
       var messages = [
@@ -92,8 +100,7 @@ client.on("message", async message => {
 
   if(command === "lulu") {
     const summonerName = args.join(" ");
-    if (summonerName == "かわいい") {
-    }　else if (summonerName) {
+    if (summonerName) {
       checkSummonerStatus(summonerName, message);
     } else {
       message.channel.send("るるちゃんは見ているよ！");
@@ -253,7 +260,6 @@ function after_complete(summoner_data, name, mode, length, team_a_string, team_b
 //Discordに投稿する
 function sendToDiscord(embed, message) {
   message.channel.send({ "embed": embed })
-  .then(message => console.log(`Send: ${embed}`))
   .catch(console.error);
 }
 
@@ -287,7 +293,6 @@ function checkSummonerStatus(name, message) {
     accessGetSummonerCurrentGame(summoner_id, function(currentGame_data) {
       var status = currentGame_data.status;
       if (status) {
-        console.log(status.status_code + ":" + status.message);
         if (status.status_code == "404"){
           message.channel.send(name + "さんは、いまゲームしてないみたい！");
         } else if (status.status_code == "400"){
@@ -296,10 +301,9 @@ function checkSummonerStatus(name, message) {
           message.channel.send("えーぴーあいの制限にひっかかっちゃった・・・");
         }　else if (status.status_code == "403"){
           message.channel.send("るるちゃんにはけんげんがないみたい！");
-        }　else if (status.status_code == "403"){
-          message.channel.send("るるちゃんにはけんげんがないみたい！");
         } else {
           message.channel.send(status.status_code + "ばんのえらーみたい！");
+          console.log(status.status_code + ":" + status.message);
         }
       }
       else {
@@ -310,27 +314,27 @@ function checkSummonerStatus(name, message) {
 }
 
 
-function checkMiuchiStatus(message) {
-  for (i in miuchi) {
-    var name = miuchi[i];
-    accessGetSummonerInfo(name, function(summoner_data) {
-      var summoner_id = summoner_data.id;
-      accessGetSummonerCurrentGame(summoner_id, function(currentGame_data) {
-        var status = currentGame_data.status;
-        if (status) {
-          if (status.status_code == "404"){
-            console.log(status.message); //ゲームがないよ
-          } else {
-            console.log(currentGame_data); //なんかのエラーっぽいよ
-          }
-        }
-        else {
-          postCurrentGameData(currentGame_data, name, summoner_data, message);
-        }
-      });
-    });
-  }
-}
+// function checkMiuchiStatus(message) {
+//   for (i in miuchi) {
+//     var name = miuchi[i];
+//     accessGetSummonerInfo(name, function(summoner_data) {
+//       var summoner_id = summoner_data.id;
+//       accessGetSummonerCurrentGame(summoner_id, function(currentGame_data) {
+//         var status = currentGame_data.status;
+//         if (status) {
+//           if (status.status_code == "404"){
+//             console.log(status.message); //ゲームがないよ
+//           } else {
+//             console.log(currentGame_data); //なんかのエラーっぽいよ
+//           }
+//         }
+//         else {
+//           postCurrentGameData(currentGame_data, name, summoner_data, message);
+//         }
+//       });
+//     });
+//   }
+// }
 
 //inGame?
 function accessGetSummonerCurrentGame(summonerId, onSuccess) {

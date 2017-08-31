@@ -32,17 +32,17 @@ function doRequest(req, res) {
 server.listen(process.env.PORT || 8080);
 
 client.on("ready", () => {
-  console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`);
+  console.info(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`);
   client.user.setGame(`on ${client.guilds.size} servers`);
 });
 
 client.on("guildCreate", guild => {
-  console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
+  console.info(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
   client.user.setGame(`on ${client.guilds.size} servers`);
 });
 
 client.on("guildDelete", guild => {
-  console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
+  console.info(`I have been removed from: ${guild.name} (id: ${guild.id})`);
   client.user.setGame(`on ${client.guilds.size} servers`);
 });
 
@@ -62,6 +62,7 @@ client.on("message", async message => {
 
 
   if (command === 'luluchan') {
+    console.log('/luluchan');
     if (message.member.voiceChannel) {
 
       var channel_id = message.member.voiceChannel.id;
@@ -77,6 +78,7 @@ client.on("message", async message => {
           message.delete().catch(O_o=>{});
 
           dispatcher.on('end', () => {
+            console.log('ひゃはははは');
             message.member.voiceChannel.leave();
             is_talking_channel_flags[channel_id] = false;
           });
@@ -102,6 +104,7 @@ client.on("message", async message => {
   }
 
   if(command === "lulu") {
+    console.log('/lulu');
     const summonerName = args.join(" ");
     if (summonerName) {
       checkSummonerStatus(summonerName, message);
@@ -111,6 +114,7 @@ client.on("message", async message => {
   }
 
   if(command === "lulusay") {
+    console.log('/lulusay');
     const sayMessage = args.join(" ");
     message.delete().catch(O_o=>{});
     message.channel.send(sayMessage);
@@ -247,6 +251,7 @@ function after_complete(summoner_data, name, mode, length, team_a_string, team_b
 
   //post
   sendToDiscord(embed, message);
+  console.log('ゲーム情報をかいた！');
 
   //投稿したゲームのIDをスプレッドシートに記入（重複防止用）
   //var range = log_sheet.getRange(last_game_row + 1, 1);
@@ -298,15 +303,19 @@ function checkSummonerStatus(name, message) {
       if (status) {
         if (status.status_code == "404"){
           message.channel.send(name + "さんは、いまゲームしてないみたい！");
+          console.log('ゲームしてない！');
         } else if (status.status_code == "400"){
           message.channel.send(name + "さんは、さもなーじゃないみたい！");
+          console.log('さもなーじゃない！');
         }　else if (status.status_code == "429"){
           message.channel.send("えーぴーあいの制限にひっかかっちゃった・・・");
+          console.warn('えーぴーあい制限！');
         }　else if (status.status_code == "403"){
           message.channel.send("るるちゃんにはけんげんがないみたい！");
+          console.warn('けんげんがないの！');
         } else {
           message.channel.send(status.status_code + "ばんのえらーみたい！");
-          console.log(status.status_code + ":" + status.message);
+          console.error('えらーだよ！' + status.status_code + ':' + status.message);
         }
       }
       else {

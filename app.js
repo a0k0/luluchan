@@ -63,9 +63,11 @@ client.on("message", async message => {
 
   if (command === 'luluchan') {
     console.log('/luluchan');
-    if (message.member.voiceChannel) {
 
-      var channel_id = message.member.voiceChannel.id;
+    if (message.member.voiceChannel) {
+      var channel = message.member.voiceChannel;
+      var channel_id = channel.id;
+
       if(is_talking_channel_flags[channel_id]) { return; }
       is_talking_channel_flags[channel_id] = true;
 
@@ -79,7 +81,7 @@ client.on("message", async message => {
 
           dispatcher.on('end', () => {
             console.log('ひゃはははは');
-            message.member.voiceChannel.leave();
+            channel.leave();
             is_talking_channel_flags[channel_id] = false;
           });
         })

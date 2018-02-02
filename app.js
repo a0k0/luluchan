@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require("./config.json");
@@ -7,10 +8,12 @@ const lol_patch =  process.env.CURRENT_PATCH || "8.1.1";
 
 const RIOT_API_KEY = process.env.RIOT_API_KEY;
 const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
+const AOKO_WEBHOOK = process.env.AOKO_WEBHOOK;
 
 const region = "jp1";
 const fs = require('fs');
 
+var request = require('request');
 var http = require('http'); //httpモジュール呼び出し
 var server = http.createServer();
 server.on('request', doRequest);
@@ -59,8 +62,6 @@ client.on("message", async message => {
   const command = args.shift().toLowerCase();
 
   if (command === 'luluchan') {
-    console.log('/luluchan');
-
     if (message.member.voiceChannel) {
       var channel = message.member.voiceChannel;
       var channel_id = channel.id;
@@ -77,13 +78,14 @@ client.on("message", async message => {
           message.delete().catch(O_o=>{});
 
           dispatcher.on('end', () => {
-            console.log('ひゃはははは');
             channel.leave();
             is_talking_channel_flags[channel_id] = false;
+            postLogDiscord('るるちゃんがしゃべった');
           });
         })
         .catch(O_o => {
           is_talking_channel_flags[channel_id] = false;
+          postLogDiscord('るるちゃんがしゃべろうとしたけどエラーだった');
         });
 
     } else {
@@ -105,10 +107,9 @@ client.on("message", async message => {
   else if (command === "lulu") {
     const summonerName = args.join(" ");
     if (summonerName) {
-      console.log('/lulu ' + summonerName);
       checkSummonerStatus(summonerName, message);
+      postLogDiscord('posted: `/lulu ' + summonerName + "`");
     } else {
-      console.log('/lulu');
       message.channel.send("るるちゃんは見ているよ！");
 
       var body =
@@ -133,14 +134,14 @@ client.on("message", async message => {
   }
 
   else if (command === "lulusay") {
-    console.log('/lulusay');
     const sayMessage = args.join(" ");
     message.delete().catch(O_o=>{});
     message.channel.send(sayMessage);
+    postLogDiscord('/lulusay ' + sayMessage);
   }
 
   else if (command === "luluhelp") {
-    console.log('/luluhelp');
+    postLogDiscord("/luluhelp");
 
     var body =
       "**/lulu サモナー名** : " +
@@ -163,7 +164,7 @@ client.on("message", async message => {
   }
 
   else if (command.match(/^lulu/)) {
-    console.log("/" + command);
+    postLogDiscord("error: undifinde command `/" + command + "`");
     message.channel.send("そのコマンドはそんざいしないみたい・・・。\n以下をかくにんしてみてね。");
 
     var body =
@@ -274,7 +275,6 @@ function postSummonerData(summoner_data, message) {
 
     //post
     sendToDiscord(embed, message);
-    console.log('サモナー情報をかいた！');
   });
 }
 
@@ -369,7 +369,7 @@ function after_complete(summoner_data, name, mode, length, team_a_string, team_b
 
   //post
   sendToDiscord(embed, message);
-  console.log('ゲーム情報をかいた！');
+  postLogDiscord("ゲーム情報をかいた");
 }
 
 
@@ -412,19 +412,17 @@ function checkSummonerStatus(name, message) {
         if (status.status_code == "404"){
           message.channel.send(name + "さんは、いまゲームしてないみたい！");
           postSummonerData(summoner_data, message);
-          console.log('ゲームしてない！');
         } else if (status.status_code == "400"){
           message.channel.send(name + "さんは、さもなーじゃないみたい！");
-          console.log('さもなーじゃない！');
         }　else if (status.status_code == "429"){
           message.channel.send("えーぴーあいの制限にひっかかっちゃった・・・");
-          console.warn('えーぴーあい制限！');
+          postLogDiscord("error: API制限");
         }　else if (status.status_code == "403"){
           message.channel.send("るるちゃんにはけんげんがないみたい！");
-          console.warn('けんげんがないの！');
+          postLogDiscord("error: API権限無し");
         } else {
           message.channel.send(status.status_code + "ばんのえらーみたい！");
-          console.error('えらーだよ！' + status.status_code + ':' + status.message);
+          postLogDiscord('error: ' + status.status_code + ' / ' + status.message);
         }
       }
       else {
@@ -480,4 +478,29 @@ function accessLolApi(url, onSuccess) {
       onSuccess(body);
     }
   });
+}
+
+
+
+
+
+
+
+//------------------------------------------------------------------------------
+// logging for me
+//------------------------------------------------------------------------------
+
+function postLogDiscord(text){
+  var options = {
+    uri: AOKO_WEBHOOK,
+    headers: {
+      "Content-type": "application/json",
+    },
+    json: {
+      "username": "るるちゃんのログ",
+      "content": text
+    }
+  };
+
+  request.post(options);
 }

@@ -102,7 +102,7 @@ client.on("message", async message => {
     }
   }
 
-  if(command === "lulu") {
+  else if (command === "lulu") {
     const summonerName = args.join(" ");
     if (summonerName) {
       console.log('/lulu ' + summonerName);
@@ -132,14 +132,14 @@ client.on("message", async message => {
     }
   }
 
-  if(command === "lulusay") {
+  else if (command === "lulusay") {
     console.log('/lulusay');
     const sayMessage = args.join(" ");
     message.delete().catch(O_o=>{});
     message.channel.send(sayMessage);
   }
 
-  if(command === "luluhelp") {
+  else if (command === "luluhelp") {
     console.log('/luluhelp');
 
     var body =
@@ -147,6 +147,32 @@ client.on("message", async message => {
       "サモナーの情報と、現在の試合内容が確認できるよ\n" +
       "**/luluchan** : " +
       "るるちゃんがしゃべるよ\n" +
+      "**/lulusay ちょうちょ！** : " +
+      "ちょうちょ！ って言うよ\n" +
+      "**/luluhelp** : " +
+      "これだよ\n\n" +
+      "導入方法等は http://luluchan.herokuapp.com/ を確認してみてね！";
+
+    var embed = {
+      "color": 13015781,
+      "description": body
+    };
+
+    //post
+    sendToDiscord(embed, message);
+  }
+
+  else if (command.match(/^lulu/)) {
+    console.log("/" + command);
+    message.channel.send("そのコマンドはそんざいしないみたい・・・。\n以下をかくにんしてみてね。");
+
+    var body =
+      "**/lulu サモナー名** : " +
+      "サモナーの情報と、現在の試合内容が確認できるよ\n" +
+      "**/luluchan** : " +
+      "るるちゃんがしゃべるよ\n" +
+      "**/lulusay ちょうちょ！** : " +
+      "ちょうちょ！ って言うよ\n" +
       "**/luluhelp** : " +
       "これだよ\n\n" +
       "導入方法等は http://luluchan.herokuapp.com/ を確認してみてね！";

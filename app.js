@@ -271,7 +271,7 @@ function createPersonalData(participant, onCreate) {
         }
       }
 
-      if (p_rate_data) {
+      if (p_rate_data.tier) {
         var p_tier = p_rate_data.tier;
         var p_rank = p_rate_data.rank;
 
@@ -296,7 +296,7 @@ function createPersonalData(participant, onCreate) {
         }
         p_rate = p_tier + p_rank;
       }
-      else { p_rate = "NoRank" }
+      else { p_rate = "--" }
 
       var createData = {
         "p_name": p_name,

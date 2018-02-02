@@ -105,7 +105,7 @@ client.on("message", async message => {
   if(command === "lulu") {
     const summonerName = args.join(" ");
     if (summonerName) {
-      console.log('/lulu' + summonerName);
+      console.log('/lulu ' + summonerName);
       checkSummonerStatus(summonerName, message);
     } else {
       console.log('/lulu');

@@ -40,11 +40,18 @@ server.listen(process.env.PORT || 8080);
 client.on("ready", () => {
   console.info(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`);
   client.user.setGame(`on ${client.guilds.size} servers`);
+  postLogDiscord(
+    "server information", "info",
+    "GET READY! (" +
+    "user:" + client.users.size +
+    " / server:" + client.guilds.size + ") "
+  );
 });
 
 client.on("guildCreate", guild => {
   console.info(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
   client.user.setGame(`on ${client.guilds.size} servers`);
+  postLogDiscord("server information", "info", "**JOINED:**" + guild.name + "(" + guild.memberCount + "members)");
 });
 
 client.on("guildDelete", guild => {
@@ -68,7 +75,7 @@ client.on("message", async message => {
 
       if(is_talking_channel_flags[channel_id]) { return; }
       is_talking_channel_flags[channel_id] = true;
-      postLogDiscord('command: /luluchan voicechat');
+      postLogDiscord(message, "info", "voicechat",);
 
       message.member.voiceChannel.join()
         .then(connection => {
@@ -85,7 +92,7 @@ client.on("message", async message => {
         })
         .catch(O_o => {
           is_talking_channel_flags[channel_id] = false;
-          postLogDiscord('**error:** /luluchan voicechat');
+          postLogDiscord(message, "error", "voicechat");
         });
 
     } else {
@@ -101,6 +108,7 @@ client.on("message", async message => {
         "ひらめいた！"
       ];
       message.channel.send(messages[ Math.floor( Math.random() * messages.length ) ]);
+      postLogDiscord( message, "info", "textchat");
     }
   }
 
@@ -108,6 +116,7 @@ client.on("message", async message => {
     const summonerName = args.join(" ");
     if (summonerName) {
       checkSummonerStatus(summonerName, message);
+      postLogDiscord(message, "info");
     } else {
       message.channel.send("るるちゃんは見ているよ！");
 
@@ -129,7 +138,7 @@ client.on("message", async message => {
 
       //post
       sendToDiscord(embed, message);
-      postLogDiscord("posted: `/lulu` information");
+      postLogDiscord(message, "info");
     }
   }
 
@@ -137,7 +146,7 @@ client.on("message", async message => {
     const sayMessage = args.join(" ");
     message.delete().catch(O_o=>{});
     message.channel.send(sayMessage);
-    postLogDiscord("posted: `/lulusay " + sayMessage + "`");
+    postLogDiscord(message, "info");
   }
 
   else if (command === "luluhelp") {
@@ -159,7 +168,7 @@ client.on("message", async message => {
 
     //post
     sendToDiscord(embed, message);
-    postLogDiscord("posted: `/luluhelp`");
+    postLogDiscord(message, "info");
   }
 
   else if (command.match(/^lulu/)) {
@@ -183,7 +192,7 @@ client.on("message", async message => {
 
     //post
     sendToDiscord(embed, message);
-    postLogDiscord("posted: undifinde command `/" + command + "`");
+    postLogDiscord(message, "info", "undifind");
   }
 });
 
@@ -274,7 +283,6 @@ function postSummonerData(summoner_data, message) {
 
     //post
     sendToDiscord(embed, message);
-    postLogDiscord("posted: `/lulu " + name + "` summoner info");
   });
 }
 
@@ -369,7 +377,6 @@ function after_complete(summoner_data, name, mode, length, team_a_string, team_b
 
   //post
   sendToDiscord(embed, message);
-  postLogDiscord("posted: `/lulu " + summoner_data.name + "` current game info");
 }
 
 
@@ -414,16 +421,16 @@ function checkSummonerStatus(name, message) {
           postSummonerData(summoner_data, message);
         } else if (status.status_code == "400"){
           message.channel.send(name + "さんは、さもなーじゃないみたい！");
-          postLogDiscord("posted: 存在しないサモナー `/lulu " + name + "`");
+          postLogDiscord(message, "info", "存在しないサモナー");
         }　else if (status.status_code == "429"){
           message.channel.send("えーぴーあいの制限にひっかかっちゃった・・・");
-          postLogDiscord("**error:** checkSummonerStatus 429 / API制限超過");
+          postLogDiscord(message, "error", "checkSummonerStatus 429: API制限超過");
         }　else if (status.status_code == "403"){
           message.channel.send("るるちゃんにはけんげんがないみたい！");
-          postLogDiscord("**error:** checkSummonerStatus 403 / API権限無し");
+          postLogDiscord(message, "error", "checkSummonerStatus 403: API権限無し");
         } else {
-          message.channel.send(status.status_code + "ばんのえらーみたい！");
-          postLogDiscord('**error:** checkSummonerStatus ' + status.status_code + ' / ' + status.message);
+          message.channel.send(status.status_code + "ばんのえらーみたい！", message);
+          postLogDiscord(message, "error", "checkSummonerStatus " + status.status_code + ": " + status.message);
         }
       }
       else {
@@ -491,7 +498,21 @@ function accessLolApi(url, onSuccess) {
 // logging for me
 //------------------------------------------------------------------------------
 
-function postLogDiscord(text){
+function postLogDiscord(message, status, supplement) {
+  var description = "";
+  var footer = "";
+  var status_color = 1278173;
+
+  if(message === "server information") {
+    description = "**information:** " + supplement;
+  } else {
+    description = "**command:** " + message.content;
+    if (supplement) { description += " (" + supplement + ")"; }
+    footer = "by " + message.author.username + " (" + message.guild.name + ")";
+  }
+
+  if (status === "error") { status_color = 14834528; }
+
   var options = {
     uri: AOKO_WEBHOOK,
     headers: {
@@ -499,7 +520,15 @@ function postLogDiscord(text){
     },
     json: {
       "username": "るるちゃんのログ",
-      "content": text
+      "embeds": [
+        {
+          "color": status_color,
+          "footer": {
+            "text": footer
+          },
+          "description": description
+        }
+      ]
     }
   };
 

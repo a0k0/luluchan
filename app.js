@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require("./config.json");
 const champion_data = require("./champion_data.json");
-const lol_patch =  process.env.RIOT_API_KEY || "8.1.1";
+const lol_patch =  process.env.CURRENT_PATCH || "8.1.1";
 
 const RIOT_API_KEY = process.env.RIOT_API_KEY;
 const DISCORD_TOKEN = process.env.DISCORD_TOKEN;

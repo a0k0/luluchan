@@ -3,8 +3,11 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require("./config.json");
 const champion_data = require("./champion_data.json");
+const lol_patch =  process.env.RIOT_API_KEY || "8.1.1";
+
 const RIOT_API_KEY = process.env.RIOT_API_KEY;
 const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
+
 const region = "jp1";
 const fs = require('fs');
 
@@ -54,12 +57,6 @@ client.on("message", async message => {
   if(message.content.indexOf(config.prefix) !== 0) return;
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
-
-  // if(command === "ping") {
-  //   const m = await message.channel.send("Ping?");
-  //   m.edit(`Pong! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`);
-  // }
-
 
   if (command === 'luluchan') {
     console.log('/luluchan');
@@ -112,6 +109,25 @@ client.on("message", async message => {
       checkSummonerStatus(summonerName, message);
     } else {
       message.channel.send("るるちゃんは見ているよ！");
+
+      var body =
+        "① `/lulu a0k0` のようにサモナーネームを添えてチャットしてね。\n" +
+        "② サモナーの情報と、現在の試合内容が確認できるよ！\n" +
+        "③ その他の使い方は `/luluhelp` で確認してね。\n\n" +
+        "うまく動かないときにはAPIのステータス( https://developer.riotgames.com/api-status/ )を確認するか、" +
+        "作者( https://twitter.com/a0k0 )に連絡してね！";
+
+      var embed = {
+        "color": 13015781,
+        "author": {
+          "name": "つかいかた👾",
+          "url": "http://luluchan.herokuapp.com/",
+        },
+        "description": body
+      };
+
+      //post
+      sendToDiscord(embed, message);
     }
   }
 
@@ -120,6 +136,27 @@ client.on("message", async message => {
     const sayMessage = args.join(" ");
     message.delete().catch(O_o=>{});
     message.channel.send(sayMessage);
+  }
+
+  if(command === "luluhelp") {
+    console.log('/luluhelp');
+
+    var body =
+      "**/lulu サモナー名** : " +
+      "サモナーの情報と、現在の試合内容が確認できるよ\n" +
+      "**/luluchan** : " +
+      "るるちゃんがしゃべるよ\n" +
+      "**/luluhelp** : " +
+      "これだよ\n\n" +
+      "導入方法等は http://luluchan.herokuapp.com/ を確認してみてね！";
+
+    var embed = {
+      "color": 13015781,
+      "description": body
+    };
+
+    //post
+    sendToDiscord(embed, message);
   }
 });
 
@@ -134,10 +171,6 @@ client.login(DISCORD_TOKEN);
 //現在のゲーム情報をDiscordに投稿する
 function postCurrentGameData(data, name, summoner_data, message) {
   var game_id = data.gameId;
-  //var last_game_row = log_sheet.getLastRow();
-
-  //既に投稿されていないか確認
-  //if (!findRow(log_sheet, game_id, 1)) {
   var mode = data.gameMode;
   var length = Math.ceil(data.gameLength / 60);
   var participants = data.participants;
@@ -173,6 +206,52 @@ function postCurrentGameData(data, name, summoner_data, message) {
   }
 }
 
+
+//サモナーの情報をDiscordに投稿する
+function postSummonerData(summoner_data, message) {
+  var id = summoner_data.id;
+
+  accessGetSummonerRate(id, function(summoner_rate) {
+    var name = summoner_data.name;
+    var level =  summoner_data.summonerLevel;
+    var icon_id = summoner_data.profileIconId;
+    var opgg_url = "https://jp.op.gg/summoner/userName=" + name.replace( / /g , "+" );
+
+    var rate_data = {};
+    var rate = "";
+
+    for(var i in summoner_rate) {
+      if (summoner_rate[i].queueType === "RANKED_SOLO_5x5") {
+        rate_data = summoner_rate[i];
+        break;
+      }
+    }
+
+    if (rate_data.tier) {
+      var tier = rate_data.tier;
+      var rank = rate_data.rank;
+      rate = tier + " " + rank;
+    }
+    else { rate = "NoRank" }
+
+    var embed = {
+      "color": 13015781,
+      "url": opgg_url,
+      "thumbnail": {
+        "url": "http://ddragon.leagueoflegends.com/cdn/" + lol_patch + "/img/profileicon/" + icon_id + ".png",
+        "width": 80,
+        "height": 80
+      },
+      "description": "**" + name + "** (" + level + "lv)\n" + rate + "\n\n" + opgg_url
+    };
+
+    //post
+    sendToDiscord(embed, message);
+    console.log('サモナー情報をかいた！');
+  });
+}
+
+
 function createPersonalData(participant, onCreate) {
   var p_name = participant.summonerName;
   var p_name_encoded = encodeURIComponent(participant.summonerName);
@@ -181,8 +260,16 @@ function createPersonalData(participant, onCreate) {
   accessGetSummonerInfo(p_name_encoded, function(summoner_data) {
     var p_id = summoner_data.id;
     accessGetSummonerRate(p_id, function(summoner_rate) {
-      var p_rate_data = summoner_rate[0];
+      var p_rate_data = {};
       var p_rate = "";
+
+      for(var i in summoner_rate) {
+        if (summoner_rate[i].queueType === "RANKED_SOLO_5x5") {
+          p_rate_data = summoner_rate[i];
+          break;
+        }
+      }
+
       if (p_rate_data) {
         var p_tier = p_rate_data.tier;
         var p_rank = p_rate_data.rank;
@@ -228,15 +315,17 @@ function createPersonalData(participant, onCreate) {
 function after_complete(summoner_data, name, mode, length, team_a_string, team_b_string, message) {
   //本文を作成
   var icon_id = summoner_data.profileIconId;
+  var opgg_url = "https://jp.op.gg/summoner/userName=" + name.replace( / /g , "+" );
+
   var embed = {
     "color": 13015781,
     "footer": {
       "text": length + "分前に開始",
     },
     "author": {
-      "name": summoner_data.name + "さんがゲーム中です🎮　(" + mode + ")",
-      "url": "https://jp.op.gg/summoner/userName=" + name,
-      "icon_url": "http://ddragon.leagueoflegends.com/cdn/7.16.1/img/profileicon/" + icon_id + ".png"
+      "name": summoner_data.name + "さんはゲーム中です🎮　(" + mode + ")",
+      "url": opgg_url,
+      "icon_url": "http://ddragon.leagueoflegends.com/cdn/" + lol_patch + "/img/profileicon/" + icon_id + ".png"
     },
     "fields": [
       {
@@ -254,16 +343,6 @@ function after_complete(summoner_data, name, mode, length, team_a_string, team_b
   //post
   sendToDiscord(embed, message);
   console.log('ゲーム情報をかいた！');
-
-  //投稿したゲームのIDをスプレッドシートに記入（重複防止用）
-  //var range = log_sheet.getRange(last_game_row + 1, 1);
-  //range.setValue(game_id);
-//}
-
-// else {
-//   //そのゲームはもう投稿したよ。
-//   console.log('done');
-// }
 }
 
 
@@ -305,6 +384,7 @@ function checkSummonerStatus(name, message) {
       if (status) {
         if (status.status_code == "404"){
           message.channel.send(name + "さんは、いまゲームしてないみたい！");
+          postSummonerData(summoner_data, message);
           console.log('ゲームしてない！');
         } else if (status.status_code == "400"){
           message.channel.send(name + "さんは、さもなーじゃないみたい！");
@@ -321,34 +401,13 @@ function checkSummonerStatus(name, message) {
         }
       }
       else {
+        postSummonerData(summoner_data, message);
         postCurrentGameData(currentGame_data, encodeURIComponent(name), summoner_data, message);
       }
     });
   });
 }
 
-
-// function checkMiuchiStatus(message) {
-//   for (i in miuchi) {
-//     var name = miuchi[i];
-//     accessGetSummonerInfo(name, function(summoner_data) {
-//       var summoner_id = summoner_data.id;
-//       accessGetSummonerCurrentGame(summoner_id, function(currentGame_data) {
-//         var status = currentGame_data.status;
-//         if (status) {
-//           if (status.status_code == "404"){
-//             console.log(status.message); //ゲームがないよ
-//           } else {
-//             console.log(currentGame_data); //なんかのエラーっぽいよ
-//           }
-//         }
-//         else {
-//           postCurrentGameData(currentGame_data, name, summoner_data, message);
-//         }
-//       });
-//     });
-//   }
-// }
 
 //inGame?
 function accessGetSummonerCurrentGame(summonerId, onSuccess) {
@@ -378,20 +437,20 @@ function getChampionName(champion_id) {
 }
 
 function accessLolApi(url, onSuccess) {
-    var api = "https://";
-    api += region;
-    api += ".api.riotgames.com/lol/";
-    api += url;
-    api += "?locale=ja_JP";
-    api += "&api_key=" + RIOT_API_KEY;
+  var api = "https://";
+  api += region;
+  api += ".api.riotgames.com/lol/";
+  api += url;
+  api += "?locale=ja_JP";
+  api += "&api_key=" + RIOT_API_KEY;
 
-    var request = require('request');
-    request.get({
-      "url": api,
-      "json": true
-    }, function (error, response, body) {
-      if(onSuccess) {
-        onSuccess(body);
-      }
-    });
+  var request = require('request');
+  request.get({
+    "url": api,
+    "json": true
+  }, function (error, response, body) {
+    if(onSuccess) {
+      onSuccess(body);
+    }
+  });
 }

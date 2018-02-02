@@ -68,6 +68,7 @@ client.on("message", async message => {
 
       if(is_talking_channel_flags[channel_id]) { return; }
       is_talking_channel_flags[channel_id] = true;
+      postLogDiscord('command: /luluchan voicechat');
 
       message.member.voiceChannel.join()
         .then(connection => {
@@ -80,12 +81,11 @@ client.on("message", async message => {
           dispatcher.on('end', () => {
             channel.leave();
             is_talking_channel_flags[channel_id] = false;
-            postLogDiscord('るるちゃんがしゃべった');
           });
         })
         .catch(O_o => {
           is_talking_channel_flags[channel_id] = false;
-          postLogDiscord('るるちゃんがしゃべろうとしたけどエラーだった');
+          postLogDiscord('**error:** /luluchan voicechat');
         });
 
     } else {
@@ -108,7 +108,6 @@ client.on("message", async message => {
     const summonerName = args.join(" ");
     if (summonerName) {
       checkSummonerStatus(summonerName, message);
-      postLogDiscord('posted: `/lulu ' + summonerName + "`");
     } else {
       message.channel.send("るるちゃんは見ているよ！");
 
@@ -130,6 +129,7 @@ client.on("message", async message => {
 
       //post
       sendToDiscord(embed, message);
+      postLogDiscord("posted: `/lulu` information");
     }
   }
 
@@ -137,12 +137,10 @@ client.on("message", async message => {
     const sayMessage = args.join(" ");
     message.delete().catch(O_o=>{});
     message.channel.send(sayMessage);
-    postLogDiscord('/lulusay ' + sayMessage);
+    postLogDiscord("posted: `/lulusay " + sayMessage + "`");
   }
 
   else if (command === "luluhelp") {
-    postLogDiscord("/luluhelp");
-
     var body =
       "**/lulu サモナー名** : " +
       "サモナーの情報と、現在の試合内容が確認できるよ\n" +
@@ -161,10 +159,10 @@ client.on("message", async message => {
 
     //post
     sendToDiscord(embed, message);
+    postLogDiscord("posted: `/luluhelp`");
   }
 
   else if (command.match(/^lulu/)) {
-    postLogDiscord("error: undifinde command `/" + command + "`");
     message.channel.send("そのコマンドはそんざいしないみたい・・・。\n以下をかくにんしてみてね。");
 
     var body =
@@ -185,6 +183,7 @@ client.on("message", async message => {
 
     //post
     sendToDiscord(embed, message);
+    postLogDiscord("posted: undifinde command `/" + command + "`");
   }
 });
 
@@ -275,6 +274,7 @@ function postSummonerData(summoner_data, message) {
 
     //post
     sendToDiscord(embed, message);
+    postLogDiscord("posted: `/lulu " + name + "` summoner info");
   });
 }
 
@@ -369,7 +369,7 @@ function after_complete(summoner_data, name, mode, length, team_a_string, team_b
 
   //post
   sendToDiscord(embed, message);
-  postLogDiscord("ゲーム情報をかいた");
+  postLogDiscord("posted: `/lulu " + summoner_data.name + "` current game info");
 }
 
 
@@ -414,15 +414,16 @@ function checkSummonerStatus(name, message) {
           postSummonerData(summoner_data, message);
         } else if (status.status_code == "400"){
           message.channel.send(name + "さんは、さもなーじゃないみたい！");
+          postLogDiscord("posted: 存在しないサモナー `/lulu " + name + "`");
         }　else if (status.status_code == "429"){
           message.channel.send("えーぴーあいの制限にひっかかっちゃった・・・");
-          postLogDiscord("error: API制限");
+          postLogDiscord("**error:** checkSummonerStatus 429 / API制限超過");
         }　else if (status.status_code == "403"){
           message.channel.send("るるちゃんにはけんげんがないみたい！");
-          postLogDiscord("error: API権限無し");
+          postLogDiscord("**error:** checkSummonerStatus 403 / API権限無し");
         } else {
           message.channel.send(status.status_code + "ばんのえらーみたい！");
-          postLogDiscord('error: ' + status.status_code + ' / ' + status.message);
+          postLogDiscord('**error:** checkSummonerStatus ' + status.status_code + ' / ' + status.message);
         }
       }
       else {

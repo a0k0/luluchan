@@ -103,11 +103,12 @@ client.on("message", async message => {
   }
 
   if(command === "lulu") {
-    console.log('/lulu');
     const summonerName = args.join(" ");
     if (summonerName) {
+      console.log('/lulu' + summonerName);
       checkSummonerStatus(summonerName, message);
     } else {
+      console.log('/lulu');
       message.channel.send("るるちゃんは見ているよ！");
 
       var body =

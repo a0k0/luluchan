@@ -412,32 +412,52 @@ function saveStaticApi() {
 
 function checkSummonerStatus(name, message) {
   accessGetSummonerInfo(encodeURIComponent(name), function(summoner_data) {
-    var summoner_id = summoner_data.id;
-    accessGetSummonerCurrentGame(summoner_id, function(currentGame_data) {
-      var status = currentGame_data.status;
-      if (status) {
-        if (status.status_code == "404"){
-          message.channel.send(name + "さんは、いまゲームしてないみたい！");
-          postSummonerData(summoner_data, message);
-        } else if (status.status_code == "400"){
-          message.channel.send(name + "さんは、さもなーじゃないみたい！");
-          postLogDiscord(message, "info", "存在しないサモナー");
-        }　else if (status.status_code == "429"){
-          message.channel.send("えーぴーあいの制限にひっかかっちゃった・・・");
-          postLogDiscord(message, "error", "checkSummonerStatus 429: API制限超過");
-        }　else if (status.status_code == "403"){
-          message.channel.send("るるちゃんにはけんげんがないみたい！");
-          postLogDiscord(message, "error", "checkSummonerStatus 403: API権限無し");
-        } else {
-          message.channel.send(status.status_code + "ばんのえらーみたい！", message);
-          postLogDiscord(message, "error", "checkSummonerStatus " + status.status_code + ": " + status.message);
+    var status = summoner_data.status;
+
+    if (status) {
+      if (status.status_code == "404"){
+        message.channel.send(name + "さんは、さもなーじゃないみたい！");
+        postLogDiscord(message, "info", "存在しないサモナー");
+      }　else if (status.status_code == "429"){
+        message.channel.send("えーぴーあいの制限にひっかかっちゃった・・・");
+        postLogDiscord(message, "error", "checkSummonerStatus 429: API制限超過");
+      }　else if (status.status_code == "403"){
+        message.channel.send("るるちゃんにはけんげんがないみたい！");
+        postLogDiscord(message, "error", "checkSummonerStatus 403: API権限無し");
+      } else {
+        message.channel.send(status.status_code + "ばんのえらーみたい！", message);
+        postLogDiscord(message, "error", "checkSummonerStatus " + status.status_code + ": " + status.message);
+      }
+    }
+    else {
+      var summoner_id = summoner_data.id;
+
+      accessGetSummonerCurrentGame(summoner_id, function(currentGame_data) {
+        var status = currentGame_data.status;
+        if (status) {
+          if (status.status_code == "404"){
+            message.channel.send(name + "さんは、いまゲームしてないみたい！");
+            postSummonerData(summoner_data, message);
+          } else if (status.status_code == "400"){
+            message.channel.send(name + "さんは、さもなーじゃないみたい！");
+            postLogDiscord(message, "info", "存在しないサモナー");
+          }　else if (status.status_code == "429"){
+            message.channel.send("えーぴーあいの制限にひっかかっちゃった・・・");
+            postLogDiscord(message, "error", "checkSummonerStatus 429: API制限超過");
+          }　else if (status.status_code == "403"){
+            message.channel.send("るるちゃんにはけんげんがないみたい！");
+            postLogDiscord(message, "error", "checkSummonerStatus 403: API権限無し");
+          } else {
+            message.channel.send(status.status_code + "ばんのえらーみたい！", message);
+            postLogDiscord(message, "error", "checkSummonerStatus " + status.status_code + ": " + status.message);
+          }
         }
-      }
-      else {
-        postSummonerData(summoner_data, message);
-        postCurrentGameData(currentGame_data, encodeURIComponent(name), summoner_data, message);
-      }
-    });
+        else {
+          postSummonerData(summoner_data, message);
+          postCurrentGameData(currentGame_data, encodeURIComponent(name), summoner_data, message);
+        }
+      });
+    }
   });
 }
 

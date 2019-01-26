@@ -1,5 +1,11 @@
 {
   "data": {
+    "Sylas":{
+      "title": "解き放たれし者",
+      "id": 517,
+      "key": "Sylas",
+      "name": "サイラス"
+    },
     "Neeko": {
       "title":"不思議のカメレオン",
       "id": 518,

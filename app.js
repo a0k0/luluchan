@@ -93,6 +93,7 @@ client.on("message", async message => {
         .catch(O_o => {
           is_talking_channel_flags[channel_id] = false;
           postLogDiscord(message, "error", "voicechat");
+          message.channel.send("なんだか今日は声がでませんわ・・・");
         });
 
     } else {
@@ -105,7 +106,11 @@ client.on("message", async message => {
         "あ、ちょうちょ！",
         "だいへんしーん！",
         "あわわわわ！",
-        "ひらめいた！"
+        "ひらめいた！",
+        "みなさん、大きすぎますわ",
+        "いい考えが浮かびますように！",
+        "かわいくなーれ！",
+        "ほーらもう１回！　ふふん！",
       ];
       message.channel.send(messages[ Math.floor( Math.random() * messages.length ) ]);
       postLogDiscord( message, "info", "textchat");

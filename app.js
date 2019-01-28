@@ -6,15 +6,15 @@ const config = require("./config.json");
 const champion_data = require("./champion_data.json");
 const lol_patch =  process.env.CURRENT_PATCH || "8.1.1";
 
-const RIOT_API_KEY = process.env.RIOT_API_KEY;
-const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
-const AOKO_WEBHOOK = process.env.AOKO_WEBHOOK;
+const RIOT_API_KEY = process.env.RIOT_API_KEY; //RIOTから発行されるapi key
+const DISCORD_TOKEN = process.env.DISCORD_TOKEN; //discord botのtoken
+const AOKO_WEBHOOK = process.env.AOKO_WEBHOOK; //logを吐き出すためのdiscord部屋
 
 const region = "jp1";
 const fs = require('fs');
 
 var request = require('request');
-var http = require('http'); //httpモジュール呼び出し
+var http = require('http');
 var server = http.createServer();
 server.on('request', doRequest);
 
@@ -39,7 +39,7 @@ server.listen(process.env.PORT || 8080);
 
 client.on("ready", () => {
   console.info(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`);
-  client.user.setGame(`on ${client.guilds.size} servers`);
+  client.user.setActivity(`on ${client.guilds.size} servers`);
   postLogDiscord(
     "server information", "info",
     "GET READY! (" +
@@ -50,13 +50,13 @@ client.on("ready", () => {
 
 client.on("guildCreate", guild => {
   console.info(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
-  client.user.setGame(`on ${client.guilds.size} servers`);
+  client.user.setActivity(`on ${client.guilds.size} servers`);
   postLogDiscord("server information", "info", "**JOINED:**" + guild.name + "(" + guild.memberCount + "members)");
 });
 
 client.on("guildDelete", guild => {
   console.info(`I have been removed from: ${guild.name} (id: ${guild.id})`);
-  client.user.setGame(`on ${client.guilds.size} servers`);
+  client.user.setActivity(`on ${client.guilds.size} servers`);
 });
 
 

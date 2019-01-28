@@ -69,6 +69,7 @@ client.on("message", async message => {
   const command = args.shift().toLowerCase();
 
   if (command === 'luluchan') {
+
     if (message.member.voiceChannel) {
       var channel = message.member.voiceChannel;
       var channel_id = channel.id;
@@ -79,9 +80,21 @@ client.on("message", async message => {
 
       message.member.voiceChannel.join()
         .then(connection => {
-          const random_id = Math.floor(Math.random() * 17)+1;
-          const random_voice_path = './audio/' + random_id + '.mp3';
-          const dispatcher = connection.playFile(random_voice_path);
+          const sound_id = args.join(" ");
+          var voice_path = './audio/1.mp3';
+
+          if (sound_id) {
+            if (sound_id <= 17 && sound_id > 0) {
+              voice_path = './audio/' + sound_id + '.mp3';
+            } else {
+              voice_path = './audio/17.mp3'; //ta
+            }
+          } else {
+            const random_id = Math.floor(Math.random() * 17)+1;
+            voice_path = './audio/' + random_id + '.mp3';
+          }
+
+          const dispatcher = connection.playFile(voice_path);
           dispatcher.setVolume(0.3);
           message.delete().catch(O_o=>{});
 

@@ -79,7 +79,7 @@ client.on("message", async message => {
 
       message.member.voiceChannel.join()
         .then(connection => {
-          const random_id = Math.floor(Math.random() * 10)+1;
+          const random_id = Math.floor(Math.random() * 16)+1;
           const random_voice_path = './audio/' + random_id + '.mp3';
           const dispatcher = connection.playFile(random_voice_path);
           dispatcher.setVolume(0.3);
@@ -99,17 +99,21 @@ client.on("message", async message => {
     } else {
       message.delete().catch(O_o=>{});
       var messages = [
-        "おあいできて光栄ですわ！",
-        "チューリップのめをみちゃだめよ。",
-        "どこかで会ったかしら？",
-        "はわわ・・・めがまわる・・・",
-        "あ、ちょうちょ！",
-        "だいへんしーん！",
-        "あわわわわ！",
-        "ひらめいた！",
         "みなさん、大きすぎますわ",
-        "いい考えが浮かびますように！",
+        "あ、ちょうちょ！",
+        "おっきくなーあれ！",
+        "だいへんしーん！",
+        "どこかで会ったかしら？",
+        "ふんふふんふふーん♫",
+        "チューリップのめをみちゃだめよ。",
+        "ふふん！",
         "かわいくなーれ！",
+        "いい考えが浮かびますように！",
+        "ひらめいた！",
+        "目を閉じたほうがいろいろ見えますわ。",
+        "ちちーんぷい！",
+        "おあいできて光栄ですわ！",
+        "はわわ・・・めがまわる・・・",
         "ほーらもう１回！　ふふん！",
       ];
       message.channel.send(messages[ Math.floor( Math.random() * messages.length ) ]);

@@ -79,7 +79,7 @@ client.on("message", async message => {
 
       message.member.voiceChannel.join()
         .then(connection => {
-          const random_id = Math.floor(Math.random() * 16)+1;
+          const random_id = Math.floor(Math.random() * 17)+1;
           const random_voice_path = './audio/' + random_id + '.mp3';
           const dispatcher = connection.playFile(random_voice_path);
           dispatcher.setVolume(0.3);

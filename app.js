@@ -87,7 +87,7 @@ client.on("message", async message => {
             if (sound_id <= 17 && sound_id > 0) {
               voice_path = './audio/' + sound_id + '.mp3';
             } else {
-              voice_path = './audio/17.mp3'; //ta
+              voice_path = './audio/17.mp3'; //taric
             }
           } else {
             const random_id = Math.floor(Math.random() * 17)+1;
@@ -414,7 +414,7 @@ function sendToDiscord(embed, message) {
 //毎回API叩こうとしたら制限にひっかかった…
 //データをしまうとこがないのでうごいてないよ
 function saveStaticApi() {
-  var url = "static-data/v3/champions";
+  var url = "static-data/v4/champions";
   var api = "https://";
   api += region;
   api += ".api.riotgames.com/lol/";
@@ -486,19 +486,19 @@ function checkSummonerStatus(name, message) {
 
 //inGame?
 function accessGetSummonerCurrentGame(summonerId, onSuccess) {
-  var url = "spectator/v3/active-games/by-summoner/" + summonerId;
+  var url = "spectator/v4/active-games/by-summoner/" + summonerId;
   accessLolApi(url, onSuccess);
 }
 
 //Summoner名から情報を割り出す
 function accessGetSummonerInfo(name, onSuccess) {
-  var url = "summoner/v3/summoners/by-name/" + name;
+  var url = "summoner/v4/summoners/by-name/" + name;
   accessLolApi(url, onSuccess);
 }
 
 //SummonerIDからレートを割り出す
 function accessGetSummonerRate(summonerId, onSuccess) {
-  var url = "league/v3/positions/by-summoner/" + summonerId;
+  var url = "league/v4/positions/by-summoner/" + summonerId;
   accessLolApi(url, onSuccess);
 }
 

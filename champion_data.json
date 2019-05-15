@@ -1,5 +1,11 @@
 {
   "data": {
+    "Yuumi": {
+      "title":"マジカルキャット",
+      "id": 350,
+      "key": "Yuumi",
+      "name": "ユーミ",
+    },
     "Sylas":{
       "title": "解き放たれし者",
       "id": 517,

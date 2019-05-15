@@ -32,6 +32,13 @@ https://discordapp.com/oauth2/authorize?client_id=349194656644595713&scope=bot&p
 * League of Legends（リーグ・オブ・レジェンド）は、Riot Games, Inc.（合同会社ライアットゲームズ）の登録商標または商標です
 
 
+## メモ書き
+
+* champion_data.jsonは手動更新です
+* http://ddragon.leagueoflegends.com/cdn/x.x.x/data/ja_JP/champion.json
+* 上記の x.x.x を https://ddragon.leagueoflegends.com/api/versions.json に記載の最新バージョンに差し替えて新チャンプを追加しましょう
+
+
 ### 連絡先
 
 https://twitter.com/a0k0
